@@ -162,10 +162,15 @@ export const sendTokens = async (wallet: CashuWallet, amount: number, proofs: an
  * Encode the proofs into a valid Cashu token (version 3)
  * @param {string} mintUrl - The minting URL (e.g., 'https://mint.minibits.cash/Bitcoin')
  * @param {any[]} proofs - Mint proofs to encode
+ * @param {string} [memo] - Optional short message with token
  * @returns {string} - Encoded Cashu token
  */
-export const encodeToken = (mintUrl: string, proofs: any[]) => {
-    return getEncodedToken({ mint: mintUrl, proofs: proofs }, { version: 4 });
+export const encodeToken = (mintUrl: string, proofs: any[], memo?: string) => {
+    return getEncodedToken({
+        mint: mintUrl,
+        proofs: proofs,
+        ...(memo ? { memo } : {})
+    }, { version: 4 });
 };
 
 /**
